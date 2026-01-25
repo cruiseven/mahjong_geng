@@ -296,8 +296,13 @@ async function addRound() {
     }
     
     // 计算本局佣金（佣金从赢家那里抽取）
-    // 规则：根据设置的比例和门槛抽佣
-    const roundCommission = totalWin >= currentSettings.commissionThreshold ? totalWin * commissionRate : 0;
+    // 规则：只有单个玩家赢钱超过门槛时，才从该玩家那里抽取佣金
+    let roundCommission = 0;
+    for (const player of playersData) {
+        if (player.score > currentSettings.commissionThreshold) {
+            roundCommission += player.score * commissionRate;
+        }
+    }
     
     // 增加局数
     roundCount++;
