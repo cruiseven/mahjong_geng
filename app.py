@@ -333,7 +333,7 @@ def index():
     return app.send_static_file('index.html')
 
 # 健康检查端点
-@app.route('/healthz')
+@app.route('/api/healthz')
 def health_check():
     return jsonify({'status': 'ok'})
 
