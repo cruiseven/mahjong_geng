@@ -189,14 +189,17 @@ function updateCurrentTime() {
 
 // 更新设置显示
 function updateSettingsDisplay() {
+    // 只在找到元素时更新，避免在index.html中报错
     const settingsElement = document.getElementById('current-settings');
     const rateInput = document.getElementById('commission-rate');
     
-    // 更新显示文本
-    settingsElement.innerHTML = `佣金比例: <strong>${currentSettings.commissionRate}%</strong> (低于${currentSettings.commissionThreshold}元不抽佣)`;
-    
-    // 更新隐藏输入框的值
-    rateInput.value = currentSettings.commissionRate;
+    if (settingsElement && rateInput) {
+        // 更新显示文本
+        settingsElement.innerHTML = `佣金比例: <strong>${currentSettings.commissionRate}%</strong> (低于${currentSettings.commissionThreshold}元不抽佣)`;
+        
+        // 更新隐藏输入框的值
+        rateInput.value = currentSettings.commissionRate;
+    }
 }
 
 // 初始化6个玩家输入框
