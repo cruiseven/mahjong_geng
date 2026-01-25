@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>所有输赢记录 - 麻将记账</title>
+    <style>
+        /* 基础样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        /* 返回按钮样式 */
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        /* 记录列表样式 */
+        .admin-section {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #333;
+            margin-top: 0;
+        }
+        
+        .round-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .round-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .round-header h4 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .delete-round-btn {
+            padding: 5px 10px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .delete-round-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .round-time {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .player-details-grid {
+            margin-bottom: 10px;
+        }
+        
+        .player-details-row {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .player-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        
+        .round-commission {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* 赢输颜色样式 */
+        .win-amount {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .lose-amount {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        /* 无记录样式 */
+        .no-records {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="admin.html" class="back-btn">返回管理员面板</a>
+        
+        <!-- 所有输赢记录 -->
+        <div class="admin-section">
+            <h2>所有输赢记录</h2>
+            <div id="rounds-management">
+                <!-- 动态生成记录列表 -->
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        // 导入数据库模块
+        import { DB } from '../js/db.js';
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', async function() {
+            // 加载并显示所有输赢记录
+            await loadAndDisplayAllRounds();
+        });
+        
+        // 加载并显示所有输赢记录
+        async function loadAndDisplayAllRounds() {
+            try {
+                // 从数据库获取所有记录
+                const allRounds = await DB.rounds.getAll();
+                
+                // 按局数倒序排列
+                const sortedRounds = allRounds.sort((a, b) => b.roundNum - a.roundNum);
+                
+                const roundsManagement = document.getElementById('rounds-management');
+                roundsManagement.innerHTML = '';
+                
+                if (sortedRounds.length === 0) {
+                    roundsManagement.innerHTML = '<p class="no-records">暂无输赢记录</p>';
+                    return;
+                }
+                
+                // 显示所有记录
+                sortedRounds.forEach(round => {
+                    const roundItem = document.createElement('div');
+                    roundItem.className = 'round-item';
+                    roundItem.dataset.roundNum = round.roundNum;
+    
+                    // 构建玩家详情HTML
+                    let playersDetails = '<div class="player-details-grid">';
+                    if (round.playersData && Array.isArray(round.playersData)) {
+                        // 每个玩家单独一行，垂直排列
+                        playersDetails += '<div class="player-details-row">';
+                        round.playersData.forEach(player => {
+                            const status = player.score > 0 ? '赢' : player.score < 0 ? '输' : '平';
+                            const displayScore = Math.round(Math.abs(player.score)); // 去掉小数点
+                            const amountClass = player.score > 0 ? 'win-amount' : player.score < 0 ? 'lose-amount' : '';
+                            
+                            playersDetails += `
+                                <div class="player-detail">
+                                    <span style="text-align: left;">${player.name}: ${status}</span> 
+                                    <span class="${amountClass}">${displayScore}元</span>
+                                </div>
+                            `;
+                        });
+                        playersDetails += '</div>';
+                    }
+                    playersDetails += '</div>';
+                
+                // 设置记录内容
+                const commission = round.commission || 0;
+                const rate = round.rate || 0;
+                const threshold = round.threshold || 500;
+                // 去掉公共账户和门槛的小数点
+                const commissionDisplay = Math.round(commission);
+                const thresholdDisplay = Math.round(threshold);
+    
+                    roundItem.innerHTML = `
+                        <div class="round-header">
+                            <h4>第 ${round.roundNum} 局</h4>
+                            <button class="delete-round-btn" data-round-num="${round.roundNum}">删除</button>
+                        </div>
+                        <div class="round-time">记录时间: ${round.time || '未知'}</div>
+                        ${playersDetails}
+                        <div class="round-commission">公共账户: ${commissionDisplay} 元 (抽取比例: ${rate.toFixed(1)}%，抽公共账户门槛: ${thresholdDisplay} 元)</div>
+                    `;
+    
+                    roundsManagement.appendChild(roundItem);
+                });
+                
+                // 绑定删除按钮事件
+                bindDeleteRoundEvents();
+            } catch (error) {
+                console.error('加载输赢记录失败:', error);
+            }
+        }
+        
+        // 绑定删除输赢记录事件
+        function bindDeleteRoundEvents() {
+            const deleteButtons = document.querySelectorAll('.delete-round-btn');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', async function() {
+                    const roundNum = parseInt(this.dataset.roundNum);
+                    if (confirm(`确定要删除第 ${roundNum} 局记录吗？`)) {
+                        await deleteRound(roundNum);
+                    }
+                });
+            });
+        }
+        
+        // 删除特定输赢记录
+        async function deleteRound(roundNum) {
+            try {
+                // 从数据库获取所有记录
+                const allRounds = await DB.rounds.getAll();
+                
+                // 过滤掉要删除的记录
+                const updatedRounds = allRounds.filter(round => round.roundNum !== roundNum);
+                
+                // 保存更新后的记录
+                await DB.rounds.saveAll(updatedRounds);
+                
+                // 重新加载并显示记录
+                await loadAndDisplayAllRounds();
+            } catch (error) {
+                console.error('删除输赢记录失败:', error);
+            }
+        }
+    </script>
+</body>
+</html>

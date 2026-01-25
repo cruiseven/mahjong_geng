@@ -13,11 +13,11 @@ body {
 }
 
 .container {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 12px;
     background-color: #fff;
-    min-height: 100vh;
+    min-height: auto;
 }
 
 /* 返回首页链接样式 */
@@ -54,13 +54,13 @@ body {
 h1 {
     text-align: center;
     color: #2c3e50;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     font-size: 1.8em;
 }
 
 h2 {
     color: #34495e;
-    margin: 20px 0 15px 0;
+    margin: 12px 0 8px 0;
     font-size: 1.4em;
     border-bottom: 2px solid #3498db;
     padding-bottom: 5px;
@@ -247,8 +247,8 @@ h3 {
 /* 玩家信息样式 */
 .players-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 15px;
+    grid-template-columns: 1fr;
+    gap: 12px;
     margin-bottom: 20px;
 }
 
@@ -426,13 +426,25 @@ h3 {
 }
 
 /* 响应式设计 */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .container {
+        max-width: 100%;
         padding: 15px;
+        margin: 0 auto;
     }
     
     h1 {
         font-size: 1.6em;
+        text-align: center;
+    }
+    
+    h2 {
+        font-size: 1.3em;
+        margin: 15px 0 10px 0;
+    }
+    
+    h3 {
+        font-size: 1.1em;
     }
     
     .players-container {
@@ -440,11 +452,67 @@ h3 {
         gap: 10px;
     }
     
-    .buttons-section {
+    /* 初始公共资金设置响应式 */
+    #initial-fund-form .form-row {
         flex-direction: column;
+        align-items: flex-start;
     }
     
-    .buttons-section button {
+    #initial-fund-form .form-row label {
+        text-align: left;
+        margin-bottom: 5px;
+        width: 100%;
+    }
+    
+    #initial-fund-form .buttons-section {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+    
+    /* 按钮区域响应式 */
+    .buttons-section {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .buttons-section button,
+    .buttons-section a {
+        padding: 15px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* 表单行响应式 */
+    .form-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .form-row label {
+        text-align: left;
+        margin-bottom: 5px;
+        width: 100%;
+    }
+    
+    .form-row input {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    /* 支持度网格响应式 */
+    .support-stats-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        gap: 10px;
+    }
+    
+    /* 统计区块响应式 */
+    .stats-section {
+        padding: 10px;
+    }
+    
+    /* 管理区块响应式 */
+    .admin-section {
         padding: 15px;
     }
 }
@@ -616,3 +684,98 @@ h3 {
     color: #666;
     border-top: 1px solid #eee;
 }
+
+/* Admin layout enhancements */
+.admin-wide {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Two-column layout for histories and supports on larger screens */
+.stats-layout {
+    display: grid;
+    /* 竖向布局：所有统计区块上下排布，不分栏 */
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+.stats-section {
+    padding: 12px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    min-height: 100px;
+}
+
+/* Simple horizontal form layout for admin forms */
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 8px 0;
+}
+.form-row label {
+    width: 210px;
+    text-align: right;
+    font-weight: 600;
+}
+.form-row input {
+    flex: 1;
+    min-width: 180px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.buttons-section {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    .stats-layout {
+        grid-template-columns: 1fr;
+    }
+    .form-row label {
+        width: 180px;
+    }
+}
+
+/* Admin styling improvements: clean, card-based visuals */
+.admin-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    border: 1px solid #e6e6e6;
+    margin-bottom: 20px;
+}
+
+.summary-card { display: none; }
+.players-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    align-items: stretch;
+}
+.stat-card {
+    border-radius: 10px;
+    padding: 12px;
+    border: 2px solid #eee;
+    background: #fff;
+    min-height: 90px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.stat-card.red { border-left: 6px solid #e74c3c; }
+.stat-card.orange { border-left: 6px solid #f39c12; }
+.stat-card.green { border-left: 6px solid #27ae60; }
+.stat-card.blue { border-left: 6px solid #2980b9; }
+.stat-card.purple { border-left: 6px solid #8e44ad; }
+.stat-card.yellow { border-left: 6px solid #f1c40f; }
+.stat-card h4 { margin: 0 0 6px 0; font-size: 1em; color: #2c3e50; }
+.stat-card .amount { font-size: 1.2em; font-weight: 700; }
+.stat-card .label { font-size: 0.9em; color: #555; }
+.stat-card:hover { transform: translateY(-2px); transition: transform 0.15s ease; }
+ 

@@ -20,7 +20,7 @@ except ImportError:
 
 # 启动服务器
 print("启动服务器...")
-print("服务器将在 http://localhost:5000 上运行")
+print("服务器将在 http://localhost:5050 上运行")
 print("按 Ctrl+C 停止服务器")
 print("=" * 50)
 
@@ -28,4 +28,4 @@ print("=" * 50)
 os.environ["FLASK_APP"] = "app.py"
 os.environ["FLASK_ENV"] = "development"
 
-subprocess.call([sys.executable, "-m", "flask", "run", "--host=0.0.0.0", "--port=5000"])
+subprocess.call([sys.executable, "-m", "flask", "run", "--host=0.0.0.0", "--port=5050"])

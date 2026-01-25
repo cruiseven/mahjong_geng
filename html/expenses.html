@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>所有消费记录 - 麻将记账</title>
+    <style>
+        /* 基础样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        /* 返回按钮样式 */
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        /* 记录列表样式 */
+        .admin-section {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #333;
+            margin-top: 0;
+        }
+        
+        .expense-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .expense-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .expense-detail {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .delete-expense-btn {
+            padding: 5px 10px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .delete-expense-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .expense-time {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .expense-amount {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        /* 无记录样式 */
+        .no-records {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="admin.html" class="back-btn">返回管理员面板</a>
+        
+        <!-- 所有消费记录 -->
+        <div class="admin-section">
+            <h2>所有消费记录</h2>
+            <div id="expenses-management">
+                <!-- 动态生成记录列表 -->
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        // 导入数据库模块
+        import { DB } from '../js/db.js';
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', async function() {
+            // 加载并显示所有消费记录
+            await loadAndDisplayAllExpenses();
+        });
+        
+        // 加载并显示所有消费记录
+        async function loadAndDisplayAllExpenses() {
+            try {
+                // 从数据库获取所有金额明细
+                const details = await DB.details.getAll();
+                
+                // 过滤出消费记录，并按时间倒序排列
+                const sortedExpenses = details
+                    .filter(detail => detail.type === 'expense')
+                    .sort((a, b) => b.timestamp - a.timestamp);
+                
+                const expensesManagement = document.getElementById('expenses-management');
+                expensesManagement.innerHTML = '';
+                
+                if (sortedExpenses.length === 0) {
+                    expensesManagement.innerHTML = '<p class="no-records">暂无消费记录</p>';
+                    return;
+                }
+                
+                // 显示所有消费记录
+                sortedExpenses.forEach(expense => {
+                    const expenseItem = document.createElement('div');
+                    expenseItem.className = 'expense-item';
+                    expenseItem.dataset.expenseId = expense.id;
+                    
+                    expenseItem.innerHTML = `
+                        <div class="expense-header">
+                            <div class="expense-detail">${expense.detail}</div>
+                            <button class="delete-expense-btn" data-expense-id="${expense.id}">删除</button>
+                        </div>
+                        <div class="expense-time">消费时间: ${expense.time}</div>
+                        <div class="expense-amount">金额: ${Math.round(expense.amount)}元</div>
+                    `;
+                    
+                    expensesManagement.appendChild(expenseItem);
+                });
+                
+                // 绑定删除按钮事件
+                bindDeleteExpenseEvents();
+            } catch (error) {
+                console.error('加载消费记录失败:', error);
+            }
+        }
+        
+        // 绑定删除消费记录事件
+        function bindDeleteExpenseEvents() {
+            const deleteButtons = document.querySelectorAll('.delete-expense-btn');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', async function() {
+                    const expenseId = parseInt(this.dataset.expenseId);
+                    if (confirm('确定要删除这条消费记录吗？')) {
+                        await deleteExpense(expenseId);
+                    }
+                });
+            });
+        }
+        
+        // 删除特定消费记录
+        async function deleteExpense(expenseId) {
+            try {
+                // 从数据库获取所有金额明细
+                const allDetails = await DB.details.getAll();
+                
+                // 过滤掉要删除的记录
+                const updatedDetails = allDetails.filter(detail => detail.id !== expenseId);
+                
+                // 保存更新后的记录
+                await DB.details.saveAll(updatedDetails);
+                
+                // 重新加载并显示消费记录
+                await loadAndDisplayAllExpenses();
+            } catch (error) {
+                console.error('删除消费记录失败:', error);
+            }
+        }
+    </script>
+</body>
+</html>

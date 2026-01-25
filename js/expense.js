@@ -256,11 +256,84 @@ style.textContent = `
     }
     
     .form-item input {
-        width: 100%;
+        width: 100% !important;
         padding: 12px;
         border: 1px solid #ddd;
         border-radius: 4px;
         font-size: 16px;
+        box-sizing: border-box;
+    }
+    
+    /* 确保datetime-local输入框也能铺满宽度 */
+    .form-item input[type="datetime-local"] {
+        width: 100% !important;
+    }
+    
+    /* 确保表单容器铺满整个可用空间 */
+    .expense-form-section {
+        width: 100% !important;
+    }
+    
+    #expense-form {
+        width: 100% !important;
+    }
+    
+    .form-item {
+        width: 100% !important;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    /* 消费记录表单按钮样式 - 始终水平排列 */
+    #expense-form .buttons-section {
+        display: flex;
+        gap: 10px;
+        margin: 20px 0;
+    }
+    
+    #expense-form .buttons-section button {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    /* 保存按钮样式 */
+    #save-expense {
+        background-color: #27ae60;
+        color: white;
+    }
+    
+    #save-expense:hover {
+        background-color: #229954;
+    }
+    
+    /* 取消按钮样式 */
+    #cancel-expense {
+        background-color: #e74c3c;
+        color: white;
+    }
+    
+    #cancel-expense:hover {
+        background-color: #c0392b;
+    }
+    
+    /* 确保在移动设备上按钮也水平排列 */
+    @media (max-width: 768px) {
+        #expense-form .buttons-section {
+            flex-direction: row !important;
+            width: auto !important;
+        }
+        
+        #expense-form .buttons-section button {
+            width: auto !important;
+            flex: 1 !important;
+        }
     }
     
     .current-gold-info {
