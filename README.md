@@ -39,7 +39,7 @@
 ## 项目结构
 
 ```
-tongji/
+Mahjong/
 ├── css/              # 样式文件
 │   └── style.css
 ├── html/             # HTML页面
@@ -62,7 +62,8 @@ tongji/
 ├── app.py            # Flask应用主文件
 ├── index.html        # 应用首页
 ├── requirements.txt  # 项目依赖
-└── start_server.py   # 服务器启动脚本
+├── start_server.py   # 服务器启动脚本
+└── README.md         # 项目说明文档
 ```
 
 ## 安装和运行
