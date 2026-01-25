@@ -8,9 +8,13 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import json
+from flask_cors import CORS
 
 # 创建Flask应用
 app = Flask(__name__)
+
+# 初始化CORS，允许所有跨域请求
+CORS(app)
 
 # 设置静态文件夹
 app.static_folder = '.'
