@@ -17,7 +17,11 @@ app.static_folder = '.'
 app.static_url_path = ''
 
 # 配置SQLite数据库
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mahjong.db'
+import os
+# 确保instance文件夹存在
+os.makedirs(os.path.join(os.getcwd(), 'instance'), exist_ok=True)
+# 在Render环境中，使用当前目录下的instance文件夹存储数据库文件
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.getcwd(), 'instance', 'mahjong.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # 创建数据库实例
