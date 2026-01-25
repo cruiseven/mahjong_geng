@@ -61,6 +61,10 @@ async function displayRecentExpenses() {
             .slice(0, 3);
         
         const expensesList = document.getElementById('expenses-list');
+        // 防御性：如果目标容器不存在，就跳过渲染，避免页面崩溃
+        if (!expensesList) {
+            return;
+        }
         expensesList.innerHTML = '';
         
         if (recentExpenses.length === 0) {
@@ -100,7 +104,7 @@ function bindAdminLoginEvents() {
     if (username === 'admin' && password === 'admin123') {
         alert('管理员登录成功！');
         // 登录成功后，跳转到管理员面板
-        window.location.href = 'html/admin.html';
+        window.location.href = '/html/admin.html';
     } else {
         alert('用户名或密码错误！');
     }
@@ -184,7 +188,10 @@ function updateCurrentTime() {
         minute: '2-digit',
         second: '2-digit'
     });
-    document.getElementById('time-display').textContent = timeString;
+    const timeEl = document.getElementById('time-display');
+    if (timeEl) {
+        timeEl.textContent = timeString;
+    }
 }
 
 // 更新设置显示
@@ -205,6 +212,10 @@ function updateSettingsDisplay() {
 // 初始化6个玩家输入框
 function initializePlayers() {
     const playersContainer = document.querySelector('.players-container');
+    if (!playersContainer) {
+        // 页面上可能没有玩家输入区域，忽略
+        return;
+    }
     // 固定玩家姓名列表
     const playerNames = ['刘', '蔡', '范', '耿', '陈', '陆'];
     
@@ -226,17 +237,26 @@ function initializePlayers() {
 // 绑定事件处理函数
 function bindEvents() {
     // 添加本局记录按钮
-    document.getElementById('add-round').addEventListener('click', addRound);
+    const addRoundBtn = document.getElementById('add-round');
+    if (addRoundBtn) {
+        addRoundBtn.addEventListener('click', addRound);
+    }
     
     // 添加消费记录按钮
-    document.getElementById('add-expense').addEventListener('click', function() {
-        window.location.href = 'html/expense.html';
-    });
+    const addExpenseBtn = document.getElementById('add-expense');
+    if (addExpenseBtn) {
+        addExpenseBtn.addEventListener('click', function() {
+            window.location.href = '/html/expense.html';
+        });
+    }
     
     // 金额明细按钮
-    document.getElementById('view-details').addEventListener('click', function() {
-        window.location.href = 'html/details.html';
-    });
+    const viewDetailsBtn = document.getElementById('view-details');
+    if (viewDetailsBtn) {
+        viewDetailsBtn.addEventListener('click', function() {
+            window.location.href = '/html/details.html';
+        });
+    }
 }
 
 // 添加本局记录
@@ -252,10 +272,15 @@ async function addRound() {
     const playerNames = ['刘', '蔡', '范', '耿', '陈', '陆'];
     
     for (let i = 0; i < 6; i++) {
-        const score = parseFloat(document.getElementById(`player-${i+1}-score`).value) || 0;
-        
+        const el = document.getElementById(`player-${i+1}-score`);
+        if (!el) {
+            console.warn(`缺少玩家输入框: player-${i+1}-score`);
+            return;
+        }
+        const score = parseFloat(el.value) || 0;
+
         playersData.push({ name: playerNames[i], score });
-        
+
         // 统计总赢和总输
         if (score > 0) {
             totalWin += score;
@@ -336,7 +361,10 @@ async function updateTotalCommission() {
     const totalGoldInteger = Math.round(totalGold);
     
     // 更新页面显示
-    document.getElementById('total-commission-amount').textContent = totalGoldInteger;
+    const el = document.getElementById('total-commission-amount');
+    if (el) {
+        el.textContent = totalGoldInteger;
+    }
 }
 
 // 计算当前金币池余额
@@ -404,6 +432,7 @@ async function saveAllRounds() {
 // 显示最近5局记录
 function displayRecentRounds() {
     const roundsList = document.getElementById('rounds-list');
+    if (!roundsList) return;
     roundsList.innerHTML = '';
     
     // 获取最近3局记录，按时间倒序排列
@@ -465,7 +494,10 @@ function displayRecentRounds() {
 // 清空玩家的输赢分数（保留姓名）
 function clearPlayerScores() {
     for (let i = 1; i <= 6; i++) {
-        document.getElementById(`player-${i}-score`).value = '0';
+        const el = document.getElementById(`player-${i}-score`);
+        if (el) {
+            el.value = '0';
+        }
     }
 }
 

@@ -1,11 +1,13 @@
 # 麻将记账应用
 
 ## 项目简介
+
 这是一个基于Web的麻将记账应用，用于记录麻将游戏的收支情况、佣金计算和统计分析。
 
 ## 功能特点
 
 ### 核心功能
+
 - 🎮 游戏记录管理：记录每局游戏的玩家数据、佣金等信息
 - 💰 收支明细管理：记录所有收入和支出明细
 - 📊 统计分析：显示累计佣金和游戏局数
@@ -13,6 +15,7 @@
 - 📤 数据导出：支持导出所有数据
 
 ### 技术特点
+
 - 前后端分离架构
 - 本地SQLite数据库存储
 - 响应式设计，支持多种设备
@@ -21,12 +24,14 @@
 ## 技术栈
 
 ### 后端
+
 - Python 3.10+
 - Flask 3.0.0：Web框架
 - Flask-SQLAlchemy 3.1.1：ORM数据库工具
 - SQLite：轻量级关系型数据库
 
 ### 前端
+
 - HTML5
 - CSS3
 - JavaScript (ES6+)
@@ -63,12 +68,14 @@ tongji/
 ## 安装和运行
 
 ### 环境要求
+
 - Python 3.10 或更高版本
 - 现代Web浏览器（Chrome、Firefox、Safari、Edge等）
 
 ### 本地运行步骤
 
 #### 方法一：使用启动脚本（推荐）
+
 1. 确保您的计算机已安装Python 3.10+
 2. 下载或克隆项目到本地
 3. 打开命令行工具，进入项目目录
@@ -80,6 +87,7 @@ tongji/
 6. 打开浏览器，访问 `http://localhost:5000` 开始使用应用
 
 #### 方法二：手动安装和运行
+
 1. 确保您的计算机已安装Python 3.10+
 2. 下载或克隆项目到本地
 3. 打开命令行工具，进入项目目录
@@ -96,6 +104,7 @@ tongji/
 ## GitHub托管步骤
 
 ### 1. 创建GitHub仓库
+
 1. 登录GitHub账号
 2. 点击右上角的「+」号，选择「New repository」
 3. 填写仓库信息：
@@ -108,32 +117,39 @@ tongji/
 ### 2. 将本地项目推送到GitHub
 
 #### 步骤1：初始化本地Git仓库
+
 在项目根目录下打开命令行工具，执行以下命令：
+
 ```bash
 git init
 ```
 
 #### 步骤2：添加项目文件
+
 ```bash
 git add .
 ```
 
 #### 步骤3：提交初始版本
+
 ```bash
 git commit -m "Initial commit"
 ```
 
 #### 步骤4：关联GitHub仓库
+
 ```bash
 git remote add origin https://github.com/您的用户名/仓库名称.git
 ```
 
 #### 步骤5：推送代码到GitHub
+
 ```bash
 git push -u origin master
 ```
 
 如果您使用的是GitHub新的默认分支名称 `main`，请使用：
+
 ```bash
 git push -u origin main
 ```
@@ -147,6 +163,7 @@ git push -u origin main
 由于这是一个需要后端运行的Web应用，直接在GitHub上无法运行完整的服务。您可以使用以下方式在GitHub或其他平台上部署运行：
 
 ### 选项1：使用GitHub Codespaces
+
 1. 进入GitHub仓库页面
 2. 点击绿色的「Code」按钮
 3. 选择「Codespaces」选项卡
@@ -159,12 +176,14 @@ git push -u origin main
 7. 点击终端中的链接或在浏览器中访问 `http://localhost:5000`
 
 ### 选项2：使用Vercel等云平台部署
+
 1. 注册Vercel、Render或Heroku等云平台账号
 2. 按照平台的部署指南，将GitHub仓库连接到平台
 3. 配置构建命令和启动命令
 4. 部署完成后，使用平台提供的URL访问应用
 
 ### 选项3：使用Docker部署
+
 1. 安装Docker
 2. 在项目根目录创建 `Dockerfile` 和 `docker-compose.yml` 文件
 3. 构建Docker镜像并运行容器
@@ -191,6 +210,7 @@ git push -u origin main
 ### 数据库模型
 
 #### Round（游戏记录）
+
 - roundNum: 游戏局数
 - playersData: 玩家数据（JSON格式）
 - commission: 佣金金额
@@ -200,6 +220,7 @@ git push -u origin main
 - timestamp: 时间戳
 
 #### Detail（收支明细）
+
 - id: 自增ID
 - type: 类型（income/expense）
 - detail: 详细描述
@@ -209,11 +230,13 @@ git push -u origin main
 - balance: 余额
 
 #### Setting（设置）
+
 - id: 固定为1
 - commissionRate: 佣金比例
 - commissionThreshold: 抽佣门槛
 
 #### Stat（统计）
+
 - id: 固定为1
 - totalCommission: 累计佣金
 - roundCount: 游戏局数
@@ -221,24 +244,29 @@ git push -u origin main
 ### API端点
 
 #### 游戏记录
+
 - GET `/api/rounds`: 获取所有游戏记录
 - POST `/api/rounds`: 添加游戏记录
 - POST `/api/rounds/all`: 保存所有游戏记录
 
 #### 收支明细
+
 - GET `/api/details`: 获取所有收支明细
 - POST `/api/details`: 添加收支明细
 - POST `/api/details/all`: 保存所有收支明细
 
 #### 设置
+
 - GET `/api/settings`: 获取设置
 - POST `/api/settings`: 保存设置
 
 #### 统计
+
 - GET `/api/stats`: 获取统计数据
 - PUT `/api/stats/total`: 更新累计佣金
 
 #### 数据管理
+
 - GET `/api/export`: 导出所有数据
 - DELETE `/api/clear`: 清空数据库
 
@@ -249,6 +277,7 @@ git push -u origin main
 ## 更新日志
 
 ### 版本 1.0.0
+
 - 初始发布
 - 实现核心功能：游戏记录、收支明细、统计分析
 - 支持设置管理和数据导出

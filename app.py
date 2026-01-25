@@ -16,9 +16,30 @@ app = Flask(__name__)
 # 初始化CORS，允许所有跨域请求
 CORS(app)
 
-# 设置静态文件夹
-app.static_folder = '.'
-app.static_url_path = ''
+# 导入send_from_directory用于静态文件服务
+from flask import send_from_directory
+import os
+
+base_dir = os.path.abspath(os.path.dirname(__file__))
+
+# 删除默认静态文件配置，使用自定义路由
+# app.static_folder = '.'
+# app.static_url_path = ''
+
+# 手动添加静态文件路由
+@app.route('/css/<path:filename>')
+def serve_css(filename):
+    return send_from_directory('css', filename)
+
+@app.route('/js/<path:filename>')
+def serve_js(filename):
+    return send_from_directory('js', filename)
+
+@app.route('/html/<path:filename>')
+def serve_html(filename):
+    return send_from_directory('html', filename)
+
+
 
 # 配置SQLite数据库
 import os
@@ -336,6 +357,8 @@ def index():
 @app.route('/api/healthz')
 def health_check():
     return jsonify({'status': 'ok'})
+
+
 
 # 主函数
 if __name__ == '__main__':
