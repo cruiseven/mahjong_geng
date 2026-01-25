@@ -324,6 +324,11 @@ def clear_db():
 def index():
     return app.send_static_file('index.html')
 
+# 健康检查端点
+@app.route('/healthz')
+def health_check():
+    return jsonify({'status': 'ok'})
+
 # 主函数
 if __name__ == '__main__':
     # 启动服务器，监听所有地址的5000端口
