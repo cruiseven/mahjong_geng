@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details - Mahjong Game</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>金额明细</h1>
+        
+        <!-- 返回首页链接 -->
+        <div class="back-link-container">
+            <a href="../index.html" class="back-link">返回首页</a>
+        </div>
+        
+        <!-- 统计信息 -->
+        <div id="details-stats" class="details-stats">
+            <div class="stat-item">
+                <span class="stat-label">总收入:</span>
+                <span class="stat-value income">¥<span id="total-income">0</span></span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总支出:</span>
+                <span class="stat-value expense">¥<span id="total-expense">0</span></span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">当前余额:</span>
+                <span class="stat-value balance">¥<span id="current-balance">0</span></span>
+            </div>
+        </div>
+        
+        <!-- 金额明细列表 -->
+        <div class="details-section">
+            <div id="details-list"></div>
+        </div>
+    </div>
+    
+    <script type="module" src="../js/details.js"></script>
+    <!-- 版权信息 -->
+    <div class="copyright">
+        <p>DESIGNED BY TANG   Ver1.0</p>
+    </div>
+</body>
+</html>

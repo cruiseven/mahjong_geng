@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Mahjong Game</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>公共账户设置</h1>
+        
+        <div class="settings-section">
+            <h2>公共账户规则设置</h2>
+            
+            <!-- 规则1：公共账户比例设置 -->
+            <div class="setting-item">
+                <label for="commission-rate-setting">规则1：公共账户比例 (%)</label>
+                <input type="number" id="commission-rate-setting" min="0" max="100" step="0.1" placeholder="请输入公共账户比例">
+                <p class="setting-desc">设置抽取公共账户的百分比，例如输入5表示5%</p>
+            </div>
+            
+            <!-- 规则2：抽公共账户门槛设置 -->
+            <div class="setting-item">
+                <label for="commission-threshold-setting">规则2：抽公共账户门槛 (元)</label>
+                <input type="number" id="commission-threshold-setting" min="0" step="0.01" placeholder="请输入抽公共账户门槛">
+                <p class="setting-desc">当赢家总金额高于此值时，才会抽取公共账户</p>
+            </div>
+            
+            <!-- 保存按钮 -->
+        <div class="buttons-section">
+            <button id="save-settings">保存设置</button>
+            <button id="back-to-main">返回首页</button>
+            <button id="back-to-admin">返回管理员面板</button>
+        </div>
+            
+            <!-- 设置提示 -->
+            <div class="settings-tip">
+                <p>💡 提示：设置保存后立即生效，刷新页面即可看到更新</p>
+            </div>
+        </div>
+        
+
+    </div>
+    
+    <script type="module" src="../js/settings.js"></script>
+</body>
+</html>

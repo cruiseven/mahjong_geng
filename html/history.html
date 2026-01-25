@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - Mahjong Game</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>历史记录</h1>
+        
+        <!-- 返回首页链接 -->
+        <div class="back-link-container">
+            <a href="../index.html" class="back-link">返回首页</a>
+        </div>
+        
+        <!-- 分页信息 -->
+        <div class="pagination-info">
+            <p>共 <span id="total-rounds">0</span> 局，每页显示 <span id="per-page">20</span> 局</p>
+        </div>
+        
+        <!-- 历史记录列表 -->
+        <div class="history-section">
+            <div id="history-list"></div>
+        </div>
+        
+        <!-- 分页控件 -->
+        <div class="pagination-container">
+            <div class="pagination-controls">
+                <button id="first-page" class="page-btn">首页</button>
+                <button id="prev-page" class="page-btn">上一页</button>
+                
+                <div class="page-info">
+                    <span id="current-page">1</span> / <span id="total-pages">1</span>
+                </div>
+                
+                <button id="next-page" class="page-btn">下一页</button>
+                <button id="last-page" class="page-btn">末页</button>
+            </div>
+            
+            <!-- 自定义页码跳转 -->
+            <div class="page-jump">
+                <label for="jump-page">跳转到：</label>
+                <input type="number" id="jump-page" min="1" placeholder="页码">
+                <button id="go-to-page" class="page-btn">跳转</button>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="../js/history.js"></script>
+</body>
+</html>

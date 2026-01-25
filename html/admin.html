@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员面板 - Mahjong Game</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>管理员面板</h1>
+        
+        <!-- 返回首页链接 -->
+        <div class="back-link-container">
+            <a href="../index.html" class="back-link">返回首页</a>
+        </div>
+        
+        <!-- 初始公共资金设置 -->
+        <div class="admin-section">
+            <h2>初始公共资金设置</h2>
+            <form id="initial-fund-form">
+                <div class="form-item">
+                    <label for="initial-fund-amount">初始公共资金 (元)</label>
+                    <input type="number" id="initial-fund-amount" min="0" step="1" placeholder="请输入初始公共资金">
+                </div>
+                <div class="buttons-section">
+                    <button type="submit" id="save-initial-fund">保存设置</button>
+                    <button type="button" id="delete-initial-fund">删除初始资金</button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- 公共账户设置 -->
+        <div class="admin-section">
+            <h2>公共账户设置</h2>
+            <p>管理公共账户的抽取比例和抽佣门槛</p>
+            <div class="buttons-section">
+                <a href="settings.html" class="settings-link">修改公共账户设置</a>
+            </div>
+        </div>
+        
+        <!-- 输赢记录管理 -->
+        <div class="admin-section">
+            <h2>输赢记录管理</h2>
+            <div id="rounds-management">
+                <!-- 动态生成记录列表 -->
+            </div>
+        </div>
+        
+        <!-- 消费记录管理 -->
+        <div class="admin-section">
+            <h2>消费记录管理</h2>
+            <div id="expenses-management">
+                <!-- 动态生成消费记录列表 -->
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="../js/admin.js"></script>
+</body>
+</html>

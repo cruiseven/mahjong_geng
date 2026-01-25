@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahjong Game</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Mahjong Game</h1>
+        
+        <!-- 当前时间显示 -->
+        <div class="current-time">
+            <h3>当前时间: <span id="time-display"></span></h3>
+        </div>
+        
+        <!-- 公共账户显示 -->
+        <div class="gold-pool">
+            <h3>公共账户: <span id="total-commission-amount">0</span> 元</h3>
+        </div>
+        
+        <!-- 公共账户操作按钮 -->
+        <div class="gold-pool-buttons">
+            <button id="add-expense">添加消费记录</button>
+            <button id="view-details">金额明细</button>
+        </div>
+        
+        <!-- 玩家输赢记录 -->
+        <div class="players-section">
+            <h2>玩家输赢记录</h2>
+            <div class="players-container">
+                <!-- 动态生成6个玩家输入框 -->
+            </div>
+        </div>
+        
+        <!-- 操作按钮 -->
+        <div class="buttons-section">
+            <button id="add-round">添加本局记录</button>
+        </div>
+        
+        <!-- 结果显示 -->
+        <div class="results-section">
+            <h2>最近记录</h2>
+            <div id="rounds-list"></div>
+            <div class="more-link-container">
+                <a href="html/history.html" class="more-link">查看更多记录</a>
+            </div>
+        </div>
+        
+        <!-- 最近消费记录 -->
+        <div class="results-section">
+            <h2>最近消费记录</h2>
+            <div id="expenses-list"></div>
+            <div class="more-link-container">
+                <a href="html/details.html" class="more-link">查看更多记录</a>
+            </div>
+        </div>
+        
+        <!-- 管理员登录 -->
+        <div class="admin-login-section">
+            <h2>管理员登录</h2>
+            <form id="admin-login-form">
+                <div class="form-item">
+                    <label for="admin-username">用户名</label>
+                    <input type="text" id="admin-username" placeholder="请输入用户名">
+                </div>
+                <div class="form-item">
+                    <label for="admin-password">密码</label>
+                    <input type="password" id="admin-password" placeholder="请输入密码">
+                </div>
+                <div class="buttons-section">
+                    <button type="submit" id="admin-login-btn">登录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script type="module" src="js/script.js"></script>
+    <!-- 版权信息 -->
+    <div class="copyright">
+        <p>DESIGNED BY TANG   Ver1.0</p>
+    </div>
+</body>
+</html>

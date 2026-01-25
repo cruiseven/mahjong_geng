@@ -1,0 +1,618 @@
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    min-height: 100vh;
+}
+
+/* 返回首页链接样式 */
+.back-link-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.back-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s ease-in-out;
+    border: none;
+    cursor: pointer;
+}
+
+.back-link:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back-link:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+h2 {
+    color: #34495e;
+    margin: 20px 0 15px 0;
+    font-size: 1.4em;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+h3 {
+    color: #555;
+    margin: 15px 0 10px 0;
+    font-size: 1.2em;
+}
+
+/* 佣金设置样式 */
+.commission-setting {
+    background-color: #ecf0f1;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.settings-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.settings-link:hover {
+    background-color: #2980b9;
+}
+
+/* 设置页面样式 */
+.settings-section {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.setting-item {
+    margin-bottom: 25px;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.setting-item input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.setting-desc {
+    font-size: 0.9em;
+    color: #666;
+    margin: 0;
+    font-style: italic;
+}
+
+/* 数据永久化保存区域样式 */
+
+
+
+
+.settings-tip {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 20px;
+    border: 1px solid #ffeeba;
+}
+
+.settings-tip p {
+    margin: 0;
+    font-size: 0.95em;
+}
+
+/* 查看更多链接样式 */
+.more-link-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.more-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #95a5a6;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.more-link:hover {
+    background-color: #7f8c8d;
+}
+
+/* 当前时间样式 */
+.current-time {
+    text-align: center;
+    background-color: #3498db;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+#time-display {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* 金币池样式 */
+.gold-pool {
+    text-align: center;
+    background-color: #ffd700;
+    color: #8b4513;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.gold-pool h3 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+#total-commission-amount {
+    font-size: 2em;
+    font-weight: bold;
+    color: #d4af37;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* 金币池操作按钮样式 */
+.gold-pool-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.gold-pool-buttons button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#add-expense {
+    background-color: #e74c3c;
+    color: white;
+}
+
+#add-expense:hover {
+    background-color: #c0392b;
+}
+
+#view-details {
+    background-color: #f39c12;
+    color: white;
+}
+
+#view-details:hover {
+    background-color: #e67e22;
+}
+
+/* 玩家信息样式 */
+.players-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.player-input {
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+/* 为每个玩家设置不同颜色 */
+.player-input:nth-child(1) {
+    background-color: #ffebee;
+    border-color: #ef5350;
+}
+
+.player-input:nth-child(2) {
+    background-color: #e8f5e8;
+    border-color: #4caf50;
+}
+
+.player-input:nth-child(3) {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+}
+
+.player-input:nth-child(4) {
+    background-color: #fff3e0;
+    border-color: #ff9800;
+}
+
+.player-input:nth-child(5) {
+    background-color: #f3e5f5;
+    border-color: #9c27b0;
+}
+
+.player-input:nth-child(6) {
+    background-color: #e0f7fa;
+    border-color: #00bcd4;
+}
+
+/* 玩家标题颜色 */
+.player-input:nth-child(1) h4 {
+    color: #c62828;
+}
+
+.player-input:nth-child(2) h4 {
+    color: #2e7d32;
+}
+
+.player-input:nth-child(3) h4 {
+    color: #1565c0;
+}
+
+.player-input:nth-child(4) h4 {
+    color: #ef6c00;
+}
+
+.player-input:nth-child(5) h4 {
+    color: #7b1fa2;
+}
+
+.player-input:nth-child(6) h4 {
+    color: #00838f;
+}
+
+.player-input h4 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #2c3e50;
+    font-size: 1em;
+}
+
+.player-input label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.player-input input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* 按钮样式 */
+.buttons-section {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.buttons-section button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#add-round {
+    background-color: #27ae60;
+    color: white;
+}
+
+#add-round:hover {
+    background-color: #229954;
+}
+
+#reset-all {
+    background-color: #e74c3c;
+    color: white;
+}
+
+#reset-all:hover {
+    background-color: #c0392b;
+}
+
+/* 结果显示样式 */
+.results-section {
+    background-color: #ecf0f1;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+
+
+.round-results {
+    margin-top: 20px;
+}
+
+#rounds-list {
+    margin-top: 15px;
+}
+
+.round-item {
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.round-item h4 {
+    color: #3498db;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+
+.round-time {
+    font-size: 0.85em;
+    color: #999;
+    margin-bottom: 6px;
+    font-style: italic;
+}
+
+.round-details {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.round-commission {
+    font-weight: bold;
+    color: #e74c3c;
+    font-size: 1em;
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 1.6em;
+    }
+    
+    .players-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .buttons-section {
+        flex-direction: column;
+    }
+    
+    .buttons-section button {
+        padding: 15px;
+    }
+}
+
+/* 玩家输赢金额样式 */
+.win-amount {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.lose-amount {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+/* 玩家明细垂直排列样式 */
+.player-details-grid {
+    margin: 10px 0;
+}
+
+.player-details-row {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.player-detail {
+    text-align: left;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 最近消费记录样式 */
+.expense-item {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.expense-detail {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.expense-time {
+    font-size: 0.85em;
+    color: #999;
+    margin-bottom: 5px;
+    font-style: italic;
+}
+
+.expense-amount {
+    font-weight: bold;
+    color: #e74c3c;
+    font-size: 1em;
+}
+
+/* 管理员登录样式 */
+.admin-login-section {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.admin-login-section h2 {
+    font-size: 18px;
+    margin: 0 0 12px 0;
+    padding: 0;
+    color: #343a40;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 10px;
+}
+
+.admin-login-section form {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.form-item {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 200px;
+    max-width: 250px;
+}
+
+.form-item label {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #495057;
+    width: 65px;
+    font-size: 14px;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.form-item input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    height: 32px;
+    box-sizing: border-box;
+    min-width: 120px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-item input:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.admin-login-section .buttons-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+#admin-login-btn {
+    padding: 8px 20px;
+    font-size: 14px;
+    height: 32px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.15s ease-in-out;
+}
+
+#admin-login-btn:hover {
+    background-color: #0056b3;
+}
+
+#admin-login-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* 版权信息样式 */
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 14px;
+    color: #666;
+    border-top: 1px solid #eee;
+}
