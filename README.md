@@ -85,7 +85,7 @@ Mahjong/
    python start_server.py
    ```
 5. 启动脚本会自动检查并安装依赖，然后启动服务器
-6. 打开浏览器，访问 `http://localhost:5000` 开始使用应用
+6. 打开浏览器，访问 `http://localhost:5050` 开始使用应用
 
 #### 方法二：手动安装和运行
 
@@ -174,7 +174,7 @@ git push -u origin main
    ```bash
    python start_server.py
    ```
-7. 点击终端中的链接或在浏览器中访问 `http://localhost:5000`
+7. 点击终端中的链接或在浏览器中访问 `http://localhost:5050`
 
 ### 选项2：使用Vercel等云平台部署
 
