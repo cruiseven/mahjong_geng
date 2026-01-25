@@ -18,11 +18,13 @@ app = Flask(__name__)
 # 初始化CORS，允许所有跨域请求
 CORS(app)
 
-# 配置SQLite数据库
-# 确保instance文件夹存在
-os.makedirs(os.path.join(os.getcwd(), 'instance'), exist_ok=True)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.getcwd(), 'instance', 'mahjong.db')
+# 配置PostgreSQL数据库
+# 从环境变量获取数据库连接URL，默认使用SQLite（用于本地开发）
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'postgresql://mahjong_postgres_user:m4iFEjKlq564foVqKfkgEutiiEk07VG2@dpg-d5ra5k95pdvs739l1qog-a.singapore-postgres.render.com/mahjong_postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# 修复PostgreSQL连接URL中的问题（如果存在）
+if app.config['SQLALCHEMY_DATABASE_URI'].startswith('postgres://'):
+    app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace('postgres://', 'postgresql://')
 
 # 初始化数据库
 db = SQLAlchemy(app)
