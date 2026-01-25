@@ -132,9 +132,10 @@ with app.app_context():
 
 # 首页路由
 @app.route('/')
+@app.route('/index.html')
 def index():
     """首页路由，返回index.html文件"""
-    print("根路由被调用！")
+    print("首页路由被调用！")
     try:
         # 使用open函数直接读取index.html文件
         with open('index.html', 'r', encoding='utf-8') as f:
