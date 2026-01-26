@@ -371,6 +371,11 @@ async function importDatabase(file) {
                     throw new Error('无效的数据库文件格式');
                 }
                 
+                // 文件读取完成后再次确认，确保用户真的想要覆盖现有数据
+                if (!confirm('确定要导入此数据库文件吗？这将覆盖现有数据，且操作不可撤销！')) {
+                    return;
+                }
+                
                 // 清空现有数据
                 await DB.clear();
                 
@@ -387,8 +392,8 @@ async function importDatabase(file) {
                     }
                 }
                 
-                // 处理不同的数据格式：details（预期格式）和allDetails（可能的导出格式）
-                const detailsData = dbData.details || dbData.allDetails || [];
+                // 处理不同的数据格式：details（预期格式）、allDetails（可能的导出格式）和goldDetails（导出格式）
+                const detailsData = dbData.details || dbData.allDetails || dbData.goldDetails || [];
                 if (Array.isArray(detailsData) && detailsData.length > 0) {
                     console.log(`开始导入金额明细，共${detailsData.length}条`);
                     for (const detail of detailsData) {
@@ -397,15 +402,23 @@ async function importDatabase(file) {
                     }
                 }
                 
-                if (dbData.settings) {
+                // 处理不同的数据格式：settings（预期格式）和commissionSettings（导出格式）
+                if (dbData.settings || dbData.commissionSettings) {
                     console.log('开始导入设置信息');
-                    await DB.settings.save(dbData.settings);
+                    const settingsData = dbData.settings || dbData.commissionSettings;
+                    await DB.settings.save(settingsData);
                     importedCount++;
                 }
                 
-                if (dbData.stats) {
+                // 处理不同的数据格式：stats（预期格式）和totalCommission（导出格式）
+                if (dbData.stats || dbData.totalCommission !== undefined) {
                     console.log('开始导入统计数据');
-                    await DB.stats.save(dbData.stats);
+                    if (dbData.stats) {
+                        await DB.stats.save(dbData.stats);
+                    } else {
+                        // 如果只有totalCommission，创建stats对象
+                        await DB.stats.save({ totalCommission: dbData.totalCommission });
+                    }
                     importedCount++;
                 }
                 
