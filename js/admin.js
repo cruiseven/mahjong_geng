@@ -675,16 +675,16 @@ style.textContent = `
         overflow: hidden;
     }
     
-    /* 历史输赢统计容器 */
-    #historical-stats {
-        width: 100%;
-        overflow: hidden;
-    }
-    
-    /* 公共资金支持度容器 */
-    #support-stats {
-        width: 100%;
-        overflow: hidden;
+    /* 历史输赢统计容器和公共资金支持度容器 - 管理员页面专用 */
+    #historical-stats, #support-stats {
+        width: 100% !important;
+        overflow: hidden !important;
+        display: block !important;
+        grid-template-columns: none !important;
+        gap: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
     }
     
     /* 确保统计区域充分利用空间 */
@@ -692,29 +692,60 @@ style.textContent = `
         width: 100% !important;
     }
     
-    /* 修复players-container样式冲突 */
-    #historical-stats, #support-stats {
-        display: block !important;
-        grid-template-columns: none !important;
-        gap: 0 !important;
+    /* 管理员页面专用支持度网格样式 - 强制覆盖所有其他样式 */
+    #historical-stats .support-stats-grid, #support-stats .support-stats-grid {
+        width: calc(100% - 20px) !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-rows: repeat(2, 1fr) !important;
+        gap: 15px !important;
+        margin: 15px auto 0 auto !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
     }
     
-    /* 确保支持度网格布满容器 */
-    .support-stats-grid {
-        width: 100% !important;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        gap: 15px;
-        margin-top: 15px;
-        padding: 0 10px;
-        box-sizing: border-box;
+    /* 管理员页面总贡献显示样式 */
+    #support-stats .total-support {
+        width: calc(100% - 20px) !important;
+        margin: 20px auto 0 auto !important;
+        padding: 15px !important;
+        background-color: #d4edda !important;
+        border-radius: 6px !important;
+        text-align: center !important;
+        font-size: 1.2em !important;
+        box-sizing: border-box !important;
     }
     
-    /* 为公共资金支持度容器添加内边距 */
-    #support-stats {
-        padding: 0 10px;
-        box-sizing: border-box;
+    /* 管理员页面专用响应式设计 - 覆盖style.css中的媒体查询 */
+    @media (max-width: 768px) {
+        /* 确保容器有足够的内边距 */
+        .container {
+            padding: 15px !important;
+        }
+        
+        /* 管理员页面专用支持度网格响应式 */
+        #historical-stats .support-stats-grid, #support-stats .support-stats-grid {
+            width: calc(100% - 30px) !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-rows: repeat(3, 1fr) !important;
+            gap: 10px !important;
+            margin: 15px auto 0 auto !important;
+        }
+        
+        /* 管理员页面总贡献显示响应式 */
+        #support-stats .total-support {
+            width: calc(100% - 30px) !important;
+        }
+    }
+    
+    /* 公共资金支持度项样式 */
+    .support-stat-item {
+        padding: 20px;
+        border-radius: 8px;
+        border: 2px solid transparent;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: all 0.3s ease;
     }
     
     .round-header,
@@ -815,25 +846,6 @@ style.textContent = `
     .lose-amount {
         color: #27ae60; /* 输 - 绿色 */
         font-weight: bold;
-    }
-    
-    /* 公共资金支持度样式 */
-    .support-stats-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        gap: 15px;
-        margin-top: 15px;
-    }
-    
-    /* 公共资金支持度项样式 */
-    .support-stat-item {
-        padding: 20px;
-        border-radius: 8px;
-        border: 2px solid transparent;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        transition: all 0.3s ease;
     }
     
     /* 为每个玩家设置不同颜色，与首页保持一致 */
