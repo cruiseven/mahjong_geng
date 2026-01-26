@@ -707,6 +707,14 @@ style.textContent = `
         grid-template-rows: repeat(2, 1fr);
         gap: 15px;
         margin-top: 15px;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+    
+    /* 为公共资金支持度容器添加内边距 */
+    #support-stats {
+        padding: 0 10px;
+        box-sizing: border-box;
     }
     
     .round-header,
