@@ -1,7 +1,7 @@
 // Mahjong Game - Core JavaScript Logic
 
 // 导入数据库模块
-import { DB } from './db.js';
+import { DB } from './db_local.js';
 
 // 全局变量
 let totalCommission = 0; // 累计佣金总额

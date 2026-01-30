@@ -1,7 +1,7 @@
 // 佣金设置页面 - JavaScript 逻辑
 
 // 导入数据库模块
-import { DB } from './db.js';
+import { DB } from './db_local.js';
 
 // 默认设置
 const DEFAULT_SETTINGS = {

@@ -1,7 +1,7 @@
 // 金额明细页面 - JavaScript 逻辑
 
 // 导入数据库模块
-import { DB } from './db.js';
+import { DB } from './db_local.js';
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', async function() {

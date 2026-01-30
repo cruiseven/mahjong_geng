@@ -1,7 +1,7 @@
 // 历史记录页面 - JavaScript 逻辑
 
 // 导入数据库模块
-import { DB } from './db.js';
+import { DB } from './db_local.js';
 
 // 全局变量
 let allRounds = []; // 所有局记录
