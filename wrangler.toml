@@ -1,0 +1,11 @@
+name = "mahjong"
+compatibility_date = "2024-01-01"
+
+# Pages 配置
+pages_build_output_dir = "public"
+
+# D1 数据库绑定
+[[d1_databases]]
+binding = "DB"
+database_name = "mahjong-db"
+database_id = "YOUR_DATABASE_ID_HERE"

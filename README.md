@@ -1,133 +1,63 @@
-# 麻将记账应用
+# 麻将记账应用 (Cloudflare Pages 版)
 
-## 项目简介
+## 📁 项目结构
 
-这是一个基于Web的麻将记账应用，用于记录麻将游戏的收支情况、佣金计算和统计分析。
-
-## 功能特点
-
-### 核心功能
-
-- 🎮 游戏记录管理：记录每局游戏的玩家数据、佣金等信息
-- 💰 收支明细管理：记录所有收入和支出明细
-- 📊 统计分析：显示累计佣金和游戏局数
-- ⚙️ 设置管理：可调整佣金比例和抽佣门槛
-- 📤 数据导出：支持导出所有数据
-
-### 技术特点
-
-- 前后端分离架构
-- 本地SQLite数据库存储
-- 响应式设计，支持多种设备
-- 直观易用的用户界面
-
-## 技术栈
-
-### 后端
-
-- Python 3.10+
-- Flask 3.0.0：Web框架
-- Flask-SQLAlchemy 3.1.1：ORM数据库工具
-- SQLite：轻量级关系型数据库
-
-### 前端
-
-- HTML5
-- CSS3
-- JavaScript (ES6+)
-
-## 项目结构
+本项目已改造为 Cloudflare Pages + D1 架构，主要文件组织如下:
 
 ```
-Mahjong/
-├── css/              # 样式文件
-│   └── style.css
-├── html/             # HTML页面
-│   ├── admin.html    # 管理员页面
-│   ├── details.html  # 收支明细页面
-│   ├── expense.html  # 支出记录页面
-│   ├── history.html  # 历史记录页面
-│   └── settings.html # 设置页面
-├── js/               # JavaScript文件
-│   ├── admin.js
-│   ├── db.js
-│   ├── details.js
-│   ├── expense.js
-│   ├── history.js
-│   ├── script.js
-│   └── settings.js
-├── instance/         # 数据库文件目录
-│   └── mahjong.db    # SQLite数据库文件
-├── __pycache__/      # Python编译缓存
-├── app.py            # Flask应用主文件
-├── index.html        # 应用首页
-├── requirements.txt  # 项目依赖
-├── start_server.py   # 服务器启动脚本
-└── README.md         # 项目说明文档
+mahjong/
+├── public/                    # ✅ 前端代码（所有 HTML/CSS/JS 都在这里）
+│   ├── index.html            # 主页
+│   ├── css/                  # 样式文件
+│   ├── js/                   # JavaScript 文件
+│   └── html/                 # 其他 HTML 页面
+├── functions/                 # ✅ 后端 API (Cloudflare Pages Functions)
+│   └── api/                  # API 路由实现
+├── schema.sql                 # ✅ 数据库初始化脚本
+├── wrangler.toml             # ✅ Cloudflare 配置文件
+└── README_DEPLOY.md          # 📋 详细部署指南
 ```
 
-## 安装和运行
+## 🚀 部署指南
 
-### 本地运行步骤
+本项目完全免费，无需服务器，部署在 Cloudflare 全球边缘网络上。
 
-如果您想在本地运行该应用，可以按照以下步骤操作：
+**详细的图文部署步骤，请务必阅读: 👉 [README_DEPLOY.md](README_DEPLOY.md)**
 
-#### 方法一：使用启动脚本（推荐）
+### 简要流程
 
-1. 确保您的计算机已安装Python 3.10+
-2. 下载或克隆项目到本地
-3. 打开命令行工具，进入项目目录
-4. 运行启动脚本：
-   ```bash
-   python start_server.py
-   ```
-5. 启动脚本会自动检查并安装依赖，然后启动服务器
-6. 打开浏览器，访问 `http://localhost:5050` 开始使用应用
+1. **环境准备**: 安装 Node.js 和 Wrangler CLI (`npm install -g wrangler`)
+2. **初始化**: 创建 D1 数据库 (`wrangler d1 create mahjong-db`)
+3. **配置**: 更新 `wrangler.toml` 中的数据库 ID
+4. **导入数据**: 运行 `wrangler d1 execute mahjong-db --file=schema.sql`
+5. **部署**: 运行 `wrangler pages deploy public --project-name=mahjong`
 
-#### 方法二：手动安装和运行
+## 🔄 架构特点
 
-1. 确保您的计算机已安装Python 3.10+
-2. 下载或克隆项目到本地
-3. 打开命令行工具，进入项目目录
-4. 安装依赖：
-   ```bash
-   pip install -r requirements.txt
-   ```
-5. 启动Flask服务器：
-   ```bash
-   python app.py
-   ```
-6. 打开浏览器，访问 `http://localhost:5050` 开始使用应用
+| 特性 | 说明 |
+|------|-----------|
+| **前端** | 纯静态 HTML/CSS/JS，托管在 Cloudflare Pages |
+| **后端** | Serverless 函数 (Cloudflare Pages Functions) |
+| **数据库** | Cloudflare D1 (基于 SQLite 的云数据库) |
+| **成本** | **完全免费** (每月 300 万次请求额度) |
+| **性能** | 全球 CDN 加速，零冷启动 (< 10ms) |
+| **数据** | 永久保存，部署更新不会覆盖数据 |
 
-## 在线访问
+## ✨ 核心功能
 
-该应用已经部署到Render平台，您可以直接通过以下链接访问：
+- 🎮 **游戏记录**: 记录玩家分数、计算盈亏
+- 💰 **收支明细**: 管理公共账户的收入和支出
+- 📊 **统计分析**: 自动计算累计佣金和局数
+- ⚙️ **灵活设置**: 自定义抽佣比例和门槛
+- 📱 **响应式设计**: 完美支持手机和桌面访问
 
-```
-https://mahjong-geng.onrender.com
-```
+## ❓ 常见问题
 
-## 使用说明
+**Q: 数据存在哪里？**
+A: 存储在 Cloudflare D1 数据库中，安全且持久。
 
-1. **首页**：显示基本统计信息和快捷入口
-2. **历史记录**：查看所有游戏记录，可进行编辑和删除
-3. **收支明细**：查看所有收入和支出记录
-4. **支出记录**：添加新的支出记录
-5. **设置**：调整佣金比例和抽佣门槛
-6. **管理员**：管理所有数据，包括导出和清空数据
+**Q: 如何修改代码？**
+A: 前端代码修改 `public/` 目录下的文件，后端逻辑修改 `functions/` 目录下的文件。修改后重新运行部署命令即可。
 
-## 许可证
-
-本项目采用 MIT 许可证，详情请查看 LICENSE 文件。
-
-## 更新日志
-
-### 版本 1.0.0
-
-- 初始发布
-- 实现核心功能：游戏记录、收支明细、统计分析
-- 支持设置管理和数据导出
-
----
-
-**祝您使用愉快！** 🎉
+**Q: 原来的 Python 版本去哪了？**
+A: 为了简化维护和降低成本，Python/Flask 版本已被移除。新版本功能完全一致，但性能更好且免费。

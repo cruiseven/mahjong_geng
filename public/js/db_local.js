@@ -1,5 +1,24 @@
-// 本地存储数据库管理模块
-// 用于在GitHub Pages等静态网站环境中替代服务器端API
+/**
+ * 本地存储数据库管理模块
+ * 
+ * 这个模块使用浏览器的localStorage API实现本地数据存储，
+ * 用于在GitHub Pages等静态网站环境中替代服务器端数据库。
+ * 
+ * 主要功能：
+ * - 使用localStorage存储游戏记录、金额明细、设置和统计数据
+ * - 提供与db.js相同的API接口，便于切换
+ * - 支持数据的增删查改操作
+ * - 支持数据导出和清空
+ * 
+ * 存储机制：
+ * - 所有数据以JSON格式存储在localStorage中
+ * - 使用统一的键名前缀'mahjong_'避免冲突
+ * - 自动生成唯一ID确保数据完整性
+ * 
+ * @module db_local
+ * @author TANG
+ * @version 1.0
+ */
 
 // 本地存储键名前缀
 const STORAGE_PREFIX = 'mahjong_';
@@ -13,19 +32,19 @@ async function initDB() {
             commissionRate: 20,
             commissionThreshold: 500
         };
-        
+
         const defaultStats = {
             totalCommission: 0,
             roundCount: 0
         };
-        
+
         // 保存默认数据
         localStorage.setItem(`${STORAGE_PREFIX}settings`, JSON.stringify(defaultSettings));
         localStorage.setItem(`${STORAGE_PREFIX}stats`, JSON.stringify(defaultStats));
         localStorage.setItem(`${STORAGE_PREFIX}rounds`, JSON.stringify([]));
         localStorage.setItem(`${STORAGE_PREFIX}details`, JSON.stringify([]));
         localStorage.setItem(`${STORAGE_PREFIX}initialized`, 'true');
-        
+
         console.log('本地数据库初始化完成');
     }
     console.log('数据库初始化完成');
@@ -40,23 +59,23 @@ async function getAllRounds() {
 // 保存游戏记录
 async function saveRound(round) {
     const rounds = await getAllRounds();
-    
+
     // 检查是否已存在相同roundNum的记录
     const existingIndex = rounds.findIndex(r => r.roundNum === round.roundNum);
-    
+
     if (existingIndex !== -1) {
         // 更新现有记录
         rounds[existingIndex] = round;
     } else {
         // 添加新记录
         rounds.push(round);
-        
+
         // 更新回合数统计
         const stats = await getStats();
         stats.roundCount = rounds.length;
         await saveStats(stats);
     }
-    
+
     localStorage.setItem(`${STORAGE_PREFIX}rounds`, JSON.stringify(rounds));
     return round;
 }
@@ -64,12 +83,12 @@ async function saveRound(round) {
 // 保存所有游戏记录
 async function saveAllRounds(rounds) {
     localStorage.setItem(`${STORAGE_PREFIX}rounds`, JSON.stringify(rounds));
-    
+
     // 更新回合数统计
     const stats = await getStats();
     stats.roundCount = rounds.length;
     await saveStats(stats);
-    
+
     return rounds;
 }
 
@@ -82,15 +101,15 @@ async function getAllDetails() {
 // 保存金额明细
 async function saveDetail(detail) {
     const details = await getAllDetails();
-    
+
     // 生成唯一ID
     if (!detail.id) {
         detail.id = Date.now() + Math.floor(Math.random() * 1000);
     }
-    
+
     // 检查是否已存在相同ID的记录
     const existingIndex = details.findIndex(d => d.id === detail.id);
-    
+
     if (existingIndex !== -1) {
         // 更新现有记录
         details[existingIndex] = detail;
@@ -98,7 +117,7 @@ async function saveDetail(detail) {
         // 添加新记录
         details.push(detail);
     }
-    
+
     localStorage.setItem(`${STORAGE_PREFIX}details`, JSON.stringify(details));
     return detail;
 }
@@ -152,7 +171,7 @@ async function exportDB() {
     const details = await getAllDetails();
     const settings = await getSettings();
     const stats = await getStats();
-    
+
     return {
         allRounds: rounds,
         totalCommission: stats.totalCommission,
@@ -166,21 +185,21 @@ async function exportDB() {
 async function clearDB() {
     localStorage.removeItem(`${STORAGE_PREFIX}rounds`);
     localStorage.removeItem(`${STORAGE_PREFIX}details`);
-    
+
     // 重置设置和统计数据
     const defaultSettings = {
         commissionRate: 20,
         commissionThreshold: 500
     };
-    
+
     const defaultStats = {
         totalCommission: 0,
         roundCount: 0
     };
-    
+
     localStorage.setItem(`${STORAGE_PREFIX}settings`, JSON.stringify(defaultSettings));
     localStorage.setItem(`${STORAGE_PREFIX}stats`, JSON.stringify(defaultStats));
-    
+
     return { message: 'Database cleared successfully' };
 }
 

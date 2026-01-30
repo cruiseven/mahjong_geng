@@ -34,6 +34,31 @@
             <button id="back-to-admin">返回管理员面板</button>
         </div>
             
+            <!-- GitHub同步设置 -->
+            <div class="admin-section" style="margin-top: 20px;">
+                <h2>GitHub数据同步</h2>
+                <p>配置GitHub API令牌以实现多设备数据同步</p>
+                
+                <div class="setting-item">
+                    <label for="github-token">GitHub API令牌</label>
+                    <input type="password" id="github-token" placeholder="请输入GitHub API令牌">
+                    <p class="setting-desc">获取令牌：登录GitHub → Settings → Developer settings → Personal access tokens → Generate new token</p>
+                    <p class="setting-desc">权限要求：需要勾选 "repo" 权限</p>
+                </div>
+                
+                <div class="buttons-section">
+                    <button id="save-github-token">保存令牌</button>
+                    <button id="sync-to-github">同步到GitHub</button>
+                    <button id="sync-from-github">从GitHub同步</button>
+                    <button id="sync-both">双向同步</button>
+                </div>
+                
+                <div id="sync-status" class="settings-tip" style="margin-top: 10px; display: none;">
+                    <p id="sync-message">同步状态：未同步</p>
+                    <p id="last-sync-time">上次同步：从未</p>
+                </div>
+            </div>
+            
             <!-- 设置提示 -->
             <div class="settings-tip">
                 <p>💡 提示：设置保存后立即生效，刷新页面即可看到更新</p>
